@@ -1,7 +1,20 @@
-console.log("teste node")
-var http = require('http');
-var server = http.createServer(function (req, res) {
-	res.end("<html><body>corpo do site</body></html>")
-	
+module.exports = function(app){
+app.get('/noticias',function(req,res){
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+
+host : 'localhost',
+user : 'root',
+password : 'rootleo',
+database :'teste'
 });
-server.listen(3000);
+
+connection.query('select * from noticias',function(erro,resultado){
+ res.render("noticias/noticia.ejs",{noticia:resultado});
+});
+
+
+	//res.render()
+});
+}
